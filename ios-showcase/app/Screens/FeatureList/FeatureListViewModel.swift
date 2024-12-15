@@ -8,7 +8,7 @@
 import Foundation
 
 class FeatureListViewModel {
-    private let coordinator: FeatureListCoordinator
+    private let coordinator: FeatureListCoordinator?
     
     
     init(coordinator: FeatureListCoordinator) {
@@ -16,7 +16,11 @@ class FeatureListViewModel {
     }
     
     func navigatetoSelectedFeature(selectedFeature: Feature) {
-        coordinator.navigateToSelectedFeature(selectedFeature: selectedFeature)
+        coordinator?.navigateToSelectedFeature(selectedFeature: selectedFeature)
+    }
+    
+    deinit {
+        print("\(self) deallocated")
     }
     
 }

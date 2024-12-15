@@ -18,6 +18,8 @@ class BarcodeScannerViewController: UIViewController {
     private let scannedBarcodeValueLabel = UILabel()
     private let scanAgainButton = FTButton(backgroundColor: .blue, title: "Scan Again?")
     
+    private var isVisible = true
+    
     // MARK: - ViewModel
     var viewModel: BarcodeScannerViewModel!
 
@@ -30,6 +32,18 @@ class BarcodeScannerViewController: UIViewController {
         setupScannedBarcodeValueLabel()
         setupScanAgainButton()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        isVisible = true
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        isVisible = false
+    }
+    
+    
     
     // MARK: - View Setup
     private func setupView() {
@@ -126,6 +140,10 @@ class BarcodeScannerViewController: UIViewController {
             self?.barcodeCameraViewController.restartScanning()
         }
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 
 }
 
@@ -139,6 +157,7 @@ extension BarcodeScannerViewController: CameraViewControllerDelegate {
     }
 
     func didSurface(error: CameraError) {
+        
         switch error {
         case .invalidDeviceInput:
             self.presentAlert(alertItem: AlertContext.invalidDeviceInput)
@@ -148,6 +167,8 @@ extension BarcodeScannerViewController: CameraViewControllerDelegate {
             self.presentAlert(alertItem: AlertContext.cameraAccessDenied)
         }
     }
+    
+    
 }
 
 @available(iOS 17, *)

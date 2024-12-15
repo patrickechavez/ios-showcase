@@ -57,6 +57,10 @@ class FeatureListViewController: UIViewController {
         snapshot.appendItems(features)
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: false) }
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 
 }
 

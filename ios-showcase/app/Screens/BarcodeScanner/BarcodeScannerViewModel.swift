@@ -14,5 +14,9 @@ class BarcodeScannerViewModel {
     init(coordinator: BarcodeScannerCoordinator) {
         self.coordinator = coordinator
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 
 }

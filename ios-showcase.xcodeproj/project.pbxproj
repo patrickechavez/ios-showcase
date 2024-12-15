@@ -113,7 +113,6 @@
 				2D5724E22D0D5A69006FB1FE /* BarcodeScannerCoordinator.swift */,
 				2D5724E02D0D5A63006FB1FE /* BarcodeScannerViewModel.swift */,
 				2D5724D82D0D5A12006FB1FE /* BarcodeScannerViewController.swift */,
-				2DAEAA562D0E6B5E00A700ED /* BarcodeCameraViewController.swift */,
 			);
 			path = BarcodeScanner;
 			sourceTree = "<group>";
@@ -165,14 +164,6 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
-		2DB5049D2D0C45AA001D1132 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Custom Views";
-			path = ..;
-			sourceTree = "<group>";
-		};
 		2DB504A72D0C5DD6001D1132 /* app */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,7 +172,6 @@
 				2DB504AA2D0C5E16001D1132 /* Custom Views */,
 				2DB504A92D0C5E0A001D1132 /* Enums */,
 				2DB504A82D0C5DFD001D1132 /* Utilities */,
-				2DB5049D2D0C45AA001D1132 /* Custom Views */,
 			);
 			path = app;
 			sourceTree = "<group>";
@@ -262,6 +252,7 @@
 			children = (
 				2DB504C52D0C92AB001D1132 /* FTAlerViewController.swift */,
 				2DB504C62D0C92AB001D1132 /* FTDataLoadingViewController.swift */,
+				2DAEAA562D0E6B5E00A700ED /* BarcodeCameraViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

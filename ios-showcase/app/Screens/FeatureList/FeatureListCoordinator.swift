@@ -8,6 +8,7 @@
 import UIKit
 
 class FeatureListCoordinator: Coordinator {
+    
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -34,6 +35,10 @@ class FeatureListCoordinator: Coordinator {
         }
         selectedFeatureCoordinator?.start()
 
+    }
+    
+    deinit {
+        print("\(self) deallocated")
     }
 
 }

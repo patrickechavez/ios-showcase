@@ -54,6 +54,10 @@ class FeatureListTableViewCell: UITableViewCell {
             featureName.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 
 }
 
