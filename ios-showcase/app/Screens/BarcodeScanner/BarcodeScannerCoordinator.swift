@@ -8,6 +8,7 @@
 import UIKit
 
 class BarcodeScannerCoordinator: Coordinator {
+    
     var navigationController: UINavigationController
     
     init(navigationController: UINavigationController) {
@@ -19,5 +20,9 @@ class BarcodeScannerCoordinator: Coordinator {
         let barcodeScannerViewController       = BarcodeScannerViewController()
         barcodeScannerViewController.viewModel = viewModel
         navigationController.pushViewController(barcodeScannerViewController, animated: true)
+    }
+    
+    deinit {
+        print("\(self) deallocated")
     }
 }

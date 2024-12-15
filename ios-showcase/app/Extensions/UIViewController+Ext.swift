@@ -25,23 +25,25 @@ extension UIViewController {
     */
     
     func presentAlert(alertItem: AlertItem) {
-        let alertController = UIAlertController(title: alertItem.title,
-                                                message: alertItem.message,
-                                                preferredStyle: .alert)
-        
-        // Primary action
-        let primaryAction = UIAlertAction(title: alertItem.buttonTitle, style: .default, handler: nil)
-        alertController.addAction(primaryAction)
-        
-        // Optional secondary action
-        if let secondaryTitle = alertItem.secondaryButtonTitle, let secondaryAction = alertItem.secondaryButtonAction {
-            let secondaryAlertAction = UIAlertAction(title: secondaryTitle, style: .default) { _ in
-                secondaryAction()
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: alertItem.title,
+                                                    message: alertItem.message,
+                                                    preferredStyle: .alert)
+            
+            // Primary action
+            let primaryAction = UIAlertAction(title: alertItem.buttonTitle, style: .default, handler: nil)
+            alertController.addAction(primaryAction)
+            
+            // Optional secondary action
+            if let secondaryTitle = alertItem.secondaryButtonTitle, let secondaryAction = alertItem.secondaryButtonAction {
+                let secondaryAlertAction = UIAlertAction(title: secondaryTitle, style: .default) { _ in
+                    secondaryAction()
+                }
+                alertController.addAction(secondaryAlertAction)
             }
-            alertController.addAction(secondaryAlertAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
-        
-        self.present(alertController, animated: true, completion: nil)
     }
      
     //In iOS 15, no need to use DispatchQueue.main.async {} code since UIViewControllers runs in @MainActor.
