@@ -10,6 +10,7 @@ import AVFoundation
 
 protocol CameraViewControllerDelegate: AnyObject {
     func didCaptureBarcode(_ barcode: String)
+    func didSurface(error: CameraError)
 }
 
 class BarcodeCameraViewController: UIViewController {
@@ -21,8 +22,7 @@ class BarcodeCameraViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        configureCamera()
-        // Do any additional setup after loading the view.
+         requestCameraPermission()
     }
     
     override func viewDidLayoutSubviews() {
@@ -30,84 +30,92 @@ class BarcodeCameraViewController: UIViewController {
         previewLayer?.frame = view.bounds
     }
     
+    // MARK: - Camera Permission
     private func requestCameraPermission() {
         let status = AVCaptureDevice.authorizationStatus(for: .video)
         
         switch status {
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                if granted {
-                    DispatchQueue.main.async {
-                        self.configureCamera()
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self?.setupCamera()
+                    } else {
+                        self?.handleCameraPermissionDenied()
                     }
-                } else {
-                    print("Camera access denied.")
                 }
             }
         case .authorized:
-            configureCamera()
+            setupCamera()
         case .restricted, .denied:
-            print("Camera access denied or restricted.")
+            handleCameraPermissionDenied()
         @unknown default:
             print("Unknown camera authorization status.")
         }
     }
     
-    private func configureCamera() {
+    private func handleCameraPermissionDenied() {
+        delegate?.didSurface(error: .cameraAccessDenied)
+    }
+    
+    // MARK: - Camera Setup
+    private func setupCamera() {
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
-            print("Error: videoCaptureDevice")
+            delegate?.didSurface(error: .invalidDeviceInput)
             return
         }
-        
-        let videoInput: AVCaptureDeviceInput
         
         do {
-            try videoInput = AVCaptureDeviceInput(device: videoCaptureDevice)
+            let videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            if captureSession.canAddInput(videoInput) {
+                captureSession.addInput(videoInput)
+            } else {
+                delegate?.didSurface(error: .invalidDeviceInput)
+                return
+            }
         } catch {
-            print("Error: videoInput")
-            return
-        }
-        
-        if captureSession.canAddInput(videoInput) {
-            captureSession.addInput(videoInput)
-        } else {
-            print("Error: captureSession.canAddInput")
+            delegate?.didSurface(error: .invalidDeviceInput)
             return
         }
         
         let metaDataOutput = AVCaptureMetadataOutput()
-        
         if captureSession.canAddOutput(metaDataOutput) {
             captureSession.addOutput(metaDataOutput)
             metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metaDataOutput.metadataObjectTypes = [.ean8, .ean13]
         } else {
-            print("Error: captureSession.metaDataOutput")
+            delegate?.didSurface(error: .invalidDeviceInput)
             return
         }
         
+        configurePreviewLayer()
+        startCaptureSession()
+    }
+    
+    private func configurePreviewLayer() {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer!.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer!)
-        
+        previewLayer?.videoGravity = .resizeAspectFill
+        if let previewLayer = previewLayer {
+            view.layer.addSublayer(previewLayer)
+        }
+    }
+    
+    private func startCaptureSession() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.captureSession.startRunning()
         }
     }
     
+    // MARK: - Public Methods
     func restartScanning() {
         guard !captureSession.isRunning else { return }
-        
-        // Restart the session
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.captureSession.startRunning()
-        }
-        
-        // Reassign the delegate if it was removed earlier
+        startCaptureSession()
+        reassignMetadataDelegate()
+    }
+    
+    private func reassignMetadataDelegate() {
         let metaDataOutput = captureSession.outputs.compactMap { $0 as? AVCaptureMetadataOutput }.first
         metaDataOutput?.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-        
-        print("Scanning restarted.")
     }
 
 }
@@ -115,28 +123,22 @@ class BarcodeCameraViewController: UIViewController {
 extension BarcodeCameraViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        guard let object = metadataObjects.first else {
-            print("Error: AVCaptureMetadataOutputObjectsDelegate")
-            return
-        }
-        
-        guard let machineReadableObject = object as? AVMetadataMachineReadableCodeObject else {
-            print("Error: AVCaptureMetadataOutputObjectsDelegate")
-            return
-        }
-        
-        guard let barcode = machineReadableObject.stringValue else {
-            print("Error: AVCaptureMetadataOutputObjectsDelegate")
+        guard let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+              let barcode = object.stringValue else {
+            delegate?.didSurface(error: .invalidScannedValue)
             return
         }
     
-        
+        // Notify delegate about the captured barcode
         delegate?.didCaptureBarcode(barcode)
-        // Stop the capture session
-        captureSession.stopRunning()
+        stopCaptureSession(output)
         
-        // Prevent further delegate calls
-        output.setMetadataObjectsDelegate(nil, queue: nil)
+    }
+    
+    // Prevent further delegate calls
+    private func stopCaptureSession(_ output: AVCaptureMetadataOutput) {
+        captureSession.stopRunning()
+        output.setMetadataObjectsDelegate(nil, queue: nil) // Prevent duplicate calls
     }
     
 }

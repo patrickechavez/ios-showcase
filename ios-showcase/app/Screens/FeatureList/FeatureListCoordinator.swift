@@ -32,7 +32,6 @@ class FeatureListCoordinator: Coordinator {
         case .nfcReader:
             selectedFeatureCoordinator = NFCCardReaderCoordinator(navigationController: navigationController)
         }
-        
         selectedFeatureCoordinator?.start()
 
     }

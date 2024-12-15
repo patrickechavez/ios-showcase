@@ -17,6 +17,8 @@
 		2D5724E52D0D5A79006FB1FE /* QRCodeScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5724E42D0D5A79006FB1FE /* QRCodeScannerViewModel.swift */; };
 		2D5724E72D0D5A7E006FB1FE /* QRCodeScannerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5724E62D0D5A7E006FB1FE /* QRCodeScannerCoordinator.swift */; };
 		2DAEAA572D0E6B5E00A700ED /* BarcodeCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAEAA562D0E6B5E00A700ED /* BarcodeCameraViewController.swift */; };
+		2DAEAA592D0EC81200A700ED /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAEAA582D0EC81200A700ED /* Alert.swift */; };
+		2DAEAA5B2D0EC85C00A700ED /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAEAA5A2D0EC85C00A700ED /* CameraError.swift */; };
 		2DAF06292D0DDED000355CB7 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF06282D0DDED000355CB7 /* UIView+Ext.swift */; };
 		2DB504802D0C3CA5001D1132 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB5047F2D0C3CA5001D1132 /* AppDelegate.swift */; };
 		2DB504822D0C3CA5001D1132 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504812D0C3CA5001D1132 /* SceneDelegate.swift */; };
@@ -54,6 +56,8 @@
 		2D5724E42D0D5A79006FB1FE /* QRCodeScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewModel.swift; sourceTree = "<group>"; };
 		2D5724E62D0D5A7E006FB1FE /* QRCodeScannerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerCoordinator.swift; sourceTree = "<group>"; };
 		2DAEAA562D0E6B5E00A700ED /* BarcodeCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeCameraViewController.swift; sourceTree = "<group>"; };
+		2DAEAA582D0EC81200A700ED /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		2DAEAA5A2D0EC85C00A700ED /* CameraError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
 		2DAF06282D0DDED000355CB7 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		2DB5047C2D0C3CA5001D1132 /* ios-showcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-showcase.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB5047F2D0C3CA5001D1132 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				2DB504A32D0C5D35001D1132 /* Constants.swift */,
+				2DAEAA582D0EC81200A700ED /* Alert.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				2DB5049B2D0C4480001D1132 /* FeatureType.swift */,
+				2DAEAA5A2D0EC85C00A700ED /* CameraError.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -371,6 +377,7 @@
 				2DB504962D0C43E9001D1132 /* FeatureListTableViewCell.swift in Sources */,
 				2D5724E52D0D5A79006FB1FE /* QRCodeScannerViewModel.swift in Sources */,
 				2DB504DE2D0C9636001D1132 /* FeatureListViewModel.swift in Sources */,
+				2DAEAA5B2D0EC85C00A700ED /* CameraError.swift in Sources */,
 				2DB504D92D0C9394001D1132 /* GFAlertContainerView.swift in Sources */,
 				2D5724E32D0D5A69006FB1FE /* BarcodeScannerCoordinator.swift in Sources */,
 				2DB504842D0C3CA5001D1132 /* FeatureListViewController.swift in Sources */,
@@ -385,6 +392,7 @@
 				2DB504BC2D0C900B001D1132 /* String+Ext.swift in Sources */,
 				2DB504BB2D0C900B001D1132 /* Date+Ext.swift in Sources */,
 				2DB504B52D0C5EE0001D1132 /* FTTitleLabel.swift in Sources */,
+				2DAEAA592D0EC81200A700ED /* Alert.swift in Sources */,
 				2D5724DF2D0D5A52006FB1FE /* NFCCardReaderCoordinator.swift in Sources */,
 				2D5724D92D0D5A12006FB1FE /* BarcodeScannerViewController.swift in Sources */,
 				2DB504A02D0C45F0001D1132 /* FTAvatarImageView.swift in Sources */,

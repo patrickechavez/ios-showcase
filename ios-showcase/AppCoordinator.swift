@@ -27,17 +27,9 @@ class AppCoordinator: Coordinator {
         FeatureList()
     }
     
-
     private func FeatureList() {
-//        let featureListCoordinator = FeatureListCoordinator(navigationController: self.navigationController)
-//        featureListCoordinator.start()
-        let featureListCoordinator = BarcodeScannerCoordinator(navigationController: self.navigationController)
+        let featureListCoordinator = FeatureListCoordinator(navigationController: self.navigationController)
         featureListCoordinator.start()
-        
     }
-    
-    private func Followers() {
-    }
-    
-    
+
 }

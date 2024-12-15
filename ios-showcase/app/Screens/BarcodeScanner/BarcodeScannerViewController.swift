@@ -10,121 +10,119 @@ import AVFoundation
 
 class BarcodeScannerViewController: UIViewController {
 
-    let barcodeCameraViewController = BarcodeCameraViewController()
-    let stackView = UIStackView()
-    let iconImageView = UIImageView()
-    let scannedBarcodeLabel = UILabel()
-    var scannedBarCode = UILabel()
-    let scanButton = FTButton(backgroundColor: .blue, title: "Scan Again?")
+    // MARK: - UI Components
+    private let barcodeCameraViewController = BarcodeCameraViewController()
+    private let stackView = UIStackView()
+    private let iconImageView = UIImageView()
+    private let scannedBarcodeLabel = UILabel()
+    private let scannedBarcodeValueLabel = UILabel()
+    private let scanAgainButton = FTButton(backgroundColor: .blue, title: "Scan Again?")
     
+    // MARK: - ViewModel
     var viewModel: BarcodeScannerViewModel!
-    
-    let captureSession = AVCaptureSession()
-    var previewLayer: AVCaptureVideoPreviewLayer?
-    
+
+    // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
-        configureCameraPreview()
-        configurescannedBarcodeLabel()
-        configureBarcodeText()
-        configureScanButton()
-
+        setupView()
+        setupCameraPreview()
+        setupScannedBarcodeStack()
+        setupScannedBarcodeValueLabel()
+        setupScanAgainButton()
     }
     
-    private func configureView() {
+    // MARK: - View Setup
+    private func setupView() {
         view.backgroundColor = .systemBackground
-
         navigationController?.navigationBar.prefersLargeTitles = true
         title = "Barcode Scanner"
     }
     
-    private func configureCameraPreview() {
+    private func setupCameraPreview() {
         addChild(barcodeCameraViewController)
         barcodeCameraViewController.delegate = self
         barcodeCameraViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(barcodeCameraViewController.view)
+
         NSLayoutConstraint.activate([
             barcodeCameraViewController.view.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -70),
             barcodeCameraViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             barcodeCameraViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             barcodeCameraViewController.view.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
         ])
-        
+
         barcodeCameraViewController.didMove(toParent: self)
     }
     
-    func configurescannedBarcodeLabel() {
+    private func setupScannedBarcodeStack() {
         view.addSubview(stackView)
-        
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 8
-        
+
         iconImageView.image = UIImage(systemName: "barcode.viewfinder")
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.tintColor = .label
-        
-        iconImageView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             iconImageView.widthAnchor.constraint(equalToConstant: 28),
             iconImageView.heightAnchor.constraint(equalToConstant: 28)
         ])
-        
-        scannedBarcodeLabel.text = "Scanned Bar Code:"
+
+        scannedBarcodeLabel.text = "Scanned Barcode:"
         scannedBarcodeLabel.font = UIFont.preferredFont(forTextStyle: .title1)
         scannedBarcodeLabel.textColor = .label
-        
-        
+
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(scannedBarcodeLabel)
         stackView.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: barcodeCameraViewController.view.bottomAnchor, constant: 12),
             stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 60)
         ])
-        
-        stackView.addArrangedSubview(iconImageView)
-        stackView.addArrangedSubview(scannedBarcodeLabel)
     }
     
-    func configureBarcodeText() {
-        view.addSubview(scannedBarCode)
-        
-        scannedBarCode.text = "Not Yet Scanned"
-        scannedBarCode.font = UIFont.boldSystemFont(ofSize: 36)
-        scannedBarCode.textColor = .red
-        scannedBarCode.textAlignment = .center
-        scannedBarCode.translatesAutoresizingMaskIntoConstraints = false
-        
+    private func setupScannedBarcodeValueLabel() {
+        view.addSubview(scannedBarcodeValueLabel)
+        scannedBarcodeValueLabel.text = "Not Yet Scanned"
+        scannedBarcodeValueLabel.font = UIFont.boldSystemFont(ofSize: 36)
+        scannedBarcodeValueLabel.textColor = .red
+        scannedBarcodeValueLabel.textAlignment = .center
+        scannedBarcodeValueLabel.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            scannedBarCode.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
-            scannedBarCode.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            scannedBarCode.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            
+            scannedBarcodeValueLabel.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 8),
+            scannedBarcodeValueLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scannedBarcodeValueLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
         ])
     }
     
-    func configureScanButton() {
-        view.addSubview(scanButton)
-        scanButton.isHidden = true
-        
-        scanButton.addTarget(self, action: #selector(scanAgainPressed), for: .touchUpInside)
-        
-        scanButton.translatesAutoresizingMaskIntoConstraints = false
+    private func setupScanAgainButton() {
+        view.addSubview(scanAgainButton)
+        scanAgainButton.isHidden = true
+        scanAgainButton.addTarget(self, action: #selector(scanAgainButtonTapped), for: .touchUpInside)
+        scanAgainButton.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
-            scanButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            scanButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            scanButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-            scanButton.heightAnchor.constraint(equalToConstant: 50)
+            scanAgainButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            scanAgainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            scanAgainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            scanAgainButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    @objc private func scanAgainPressed() {
+    // MARK: - Actions
+    @objc private func scanAgainButtonTapped() {
+        resetScanningState()
+    }
+
+    private func resetScanningState() {
         DispatchQueue.main.async { [weak self] in
-            self?.scannedBarCode.textColor = .red
-            self?.scannedBarCode.text = "Not Yet Scanned"
-            self?.scanButton.isHidden = true
+            self?.scannedBarcodeValueLabel.text = "Not Yet Scanned"
+            self?.scannedBarcodeValueLabel.textColor = .red
+            self?.scanAgainButton.isHidden = true
             self?.barcodeCameraViewController.restartScanning()
         }
     }
@@ -133,15 +131,23 @@ class BarcodeScannerViewController: UIViewController {
 
 extension BarcodeScannerViewController: CameraViewControllerDelegate {
     func didCaptureBarcode(_ barcode: String) {
-        
         DispatchQueue.main.async { [weak self] in
-            self?.scannedBarCode.textColor = .green
-            self?.scannedBarCode.text = barcode
-            self?.scanButton.isHidden = false
+            self?.scannedBarcodeValueLabel.text = barcode
+            self?.scannedBarcodeValueLabel.textColor = .green
+            self?.scanAgainButton.isHidden = false
         }
     }
-    
-    
+
+    func didSurface(error: CameraError) {
+        switch error {
+        case .invalidDeviceInput:
+            self.presentAlert(alertItem: AlertContext.invalidDeviceInput)
+        case .invalidScannedValue:
+            self.presentAlert(alertItem: AlertContext.invalidScannedType)
+        case .cameraAccessDenied:
+            self.presentAlert(alertItem: AlertContext.cameraAccessDenied)
+        }
+    }
 }
 
 @available(iOS 17, *)
