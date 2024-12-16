@@ -1,23 +1,23 @@
 //
-//  BarcodeCameraViewController.swift
+//  QRCodeCameraViewController.swift
 //  ios-showcase
 //
-//  Created by John Patrick Echavez on 12/15/24.
+//  Created by John Patrick Echavez on 12/16/24.
 //
 
 import UIKit
 import AVFoundation
 
-protocol BarcodeCameraViewControllerDelegate: AnyObject {
-    func didCaptureBarcode(_ barcode: String)
+protocol QRCodeCameraViewControllerDelegate: AnyObject {
+    func didCaptureQRCode(_ qrCode: String)
     func didSurface(error: CameraError)
 }
 
-class BarcodeCameraViewController: UIViewController {
+class QRCodeCameraViewController: UIViewController {
     
     private let captureSession = AVCaptureSession()
     private var previewLayer: AVCaptureVideoPreviewLayer?
-    weak var delegate: BarcodeCameraViewControllerDelegate?
+    weak var delegate: QRCodeCameraViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class BarcodeCameraViewController: UIViewController {
         if captureSession.canAddOutput(metaDataOutput) {
             captureSession.addOutput(metaDataOutput)
             metaDataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-            metaDataOutput.metadataObjectTypes = [.ean8, .ean13]
+            metaDataOutput.metadataObjectTypes = [.qr]
         } else {
             delegate?.didSurface(error: .invalidDeviceInput)
             return
@@ -120,17 +120,17 @@ class BarcodeCameraViewController: UIViewController {
 
 }
 
-extension BarcodeCameraViewController: AVCaptureMetadataOutputObjectsDelegate {
+extension QRCodeCameraViewController: AVCaptureMetadataOutputObjectsDelegate {
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         guard let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
-              let barcode = object.stringValue else {
+              let qrCode = object.stringValue else {
             delegate?.didSurface(error: .invalidScannedValue)
             return
         }
     
-        // Notify delegate about the captured barcode
-        delegate?.didCaptureBarcode(barcode)
+        // Notify delegate about the captured QRCode
+        delegate?.didCaptureQRCode(qrCode)
         stopCaptureSession(output)
         
     }
@@ -142,3 +142,4 @@ extension BarcodeCameraViewController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
 }
+

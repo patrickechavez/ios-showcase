@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D37D8BC2D0FEBE1008593B1 /* QRCodeCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D37D8BB2D0FEBE1008593B1 /* QRCodeCameraViewController.swift */; };
 		2D5724D72D0D5A0A006FB1FE /* QRCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5724D62D0D5A0A006FB1FE /* QRCodeScannerViewController.swift */; };
 		2D5724D92D0D5A12006FB1FE /* BarcodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5724D82D0D5A12006FB1FE /* BarcodeScannerViewController.swift */; };
 		2D5724DB2D0D5A19006FB1FE /* NFCCardReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D5724DA2D0D5A19006FB1FE /* NFCCardReaderViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D37D8BB2D0FEBE1008593B1 /* QRCodeCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCameraViewController.swift; sourceTree = "<group>"; };
 		2D5724D62D0D5A0A006FB1FE /* QRCodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerViewController.swift; sourceTree = "<group>"; };
 		2D5724D82D0D5A12006FB1FE /* BarcodeScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScannerViewController.swift; sourceTree = "<group>"; };
 		2D5724DA2D0D5A19006FB1FE /* NFCCardReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCCardReaderViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				2DB504C52D0C92AB001D1132 /* FTAlerViewController.swift */,
 				2DB504C62D0C92AB001D1132 /* FTDataLoadingViewController.swift */,
 				2DAEAA562D0E6B5E00A700ED /* BarcodeCameraViewController.swift */,
+				2D37D8BB2D0FEBE1008593B1 /* QRCodeCameraViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				2DB504962D0C43E9001D1132 /* FeatureListTableViewCell.swift in Sources */,
 				2D5724E52D0D5A79006FB1FE /* QRCodeScannerViewModel.swift in Sources */,
 				2DB504DE2D0C9636001D1132 /* FeatureListViewModel.swift in Sources */,
+				2D37D8BC2D0FEBE1008593B1 /* QRCodeCameraViewController.swift in Sources */,
 				2DAEAA5B2D0EC85C00A700ED /* CameraError.swift in Sources */,
 				2DB504D92D0C9394001D1132 /* GFAlertContainerView.swift in Sources */,
 				2D5724E32D0D5A69006FB1FE /* BarcodeScannerCoordinator.swift in Sources */,
