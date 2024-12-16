@@ -153,7 +153,9 @@ extension QRCodeScannerViewController: QRCodeCameraViewControllerDelegate {
             self.presentAlert(alertItem: AlertContext.cameraAccessDenied)
         }
     }
+
 }
+
 
 @available(iOS 17, *)
 #Preview {

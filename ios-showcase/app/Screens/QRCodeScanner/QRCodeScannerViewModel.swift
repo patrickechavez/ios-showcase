@@ -14,5 +14,9 @@ class QRCodeScannerViewModel {
     init(coordinator: QRCodeScannerCoordinator) {
         self.coordinator = coordinator
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 
 }

@@ -11,7 +11,7 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController {
 
     // MARK: - UI Components
-    private let barcodeCameraViewController = BarcodeCameraViewController()
+    private let barcodeCameraView = BarcodeCameraView()
     private let stackView = UIStackView()
     private let iconImageView = UIImageView()
     private let scannedBarcodeLabel = UILabel()
@@ -25,33 +25,36 @@ class BarcodeScannerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupCameraPreview()
+        setupBarcodeCameraView()
         setupScannedBarcodeStack()
         setupScannedBarcodeValueLabel()
         setupScanAgainButton()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        barcodeCameraView.stopCamera()
     }
         
     // MARK: - View Setup
     private func setupView() {
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
         title = "Barcode Scanner"
     }
     
-    private func setupCameraPreview() {
-        addChild(barcodeCameraViewController)
-        barcodeCameraViewController.delegate = self
-        barcodeCameraViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(barcodeCameraViewController.view)
+    private func setupBarcodeCameraView() {
+        view.addSubview(barcodeCameraView)
+        barcodeCameraView.backgroundColor = .black
+        barcodeCameraView.delegate = self
+        barcodeCameraView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            barcodeCameraViewController.view.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -70),
-            barcodeCameraViewController.view.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            barcodeCameraViewController.view.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            barcodeCameraViewController.view.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
+            barcodeCameraView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
+            barcodeCameraView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            barcodeCameraView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            barcodeCameraView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6)
         ])
 
-        barcodeCameraViewController.didMove(toParent: self)
     }
     
     private func setupScannedBarcodeStack() {
@@ -60,14 +63,10 @@ class BarcodeScannerViewController: UIViewController {
         stackView.alignment = .center
         stackView.spacing = 8
 
-        iconImageView.image = UIImage(systemName: "barcode.viewfinder")
+        let configuration = UIImage.SymbolConfiguration(scale: .large)
+        iconImageView.image = UIImage(systemName: "barcode.viewfinder", withConfiguration: configuration)
         iconImageView.contentMode = .scaleAspectFit
         iconImageView.tintColor = .label
-
-        NSLayoutConstraint.activate([
-            iconImageView.widthAnchor.constraint(equalToConstant: 28),
-            iconImageView.heightAnchor.constraint(equalToConstant: 28)
-        ])
 
         scannedBarcodeLabel.text = "Scanned Barcode:"
         scannedBarcodeLabel.font = UIFont.preferredFont(forTextStyle: .title1)
@@ -78,7 +77,7 @@ class BarcodeScannerViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: barcodeCameraViewController.view.bottomAnchor, constant: 12),
+            stackView.topAnchor.constraint(equalTo: barcodeCameraView.bottomAnchor, constant: 12),
             stackView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 60)
         ])
@@ -123,7 +122,7 @@ class BarcodeScannerViewController: UIViewController {
             self?.scannedBarcodeValueLabel.text = "Not Yet Scanned"
             self?.scannedBarcodeValueLabel.textColor = .red
             self?.scanAgainButton.isHidden = true
-            self?.barcodeCameraViewController.restartScanning()
+            self?.barcodeCameraView.restartScanning()
         }
     }
     
@@ -133,7 +132,7 @@ class BarcodeScannerViewController: UIViewController {
 
 }
 
-extension BarcodeScannerViewController: BarcodeCameraViewControllerDelegate {
+extension BarcodeScannerViewController: BarcodeCameraViewDelegate {
     func didCaptureBarcode(_ barcode: String) {
         DispatchQueue.main.async { [weak self] in
             self?.scannedBarcodeValueLabel.text = barcode

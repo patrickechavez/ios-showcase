@@ -20,4 +20,8 @@ class QRCodeScannerCoordinator: Coordinator {
         qrCodeScannerViewController.viewModel    = viewModel
         navigationController.pushViewController(qrCodeScannerViewController, animated: true)
     }
+    
+    deinit {
+        print("\(self) deallocated")
+    }
 }
