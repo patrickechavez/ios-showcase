@@ -17,9 +17,7 @@ class BarcodeScannerViewController: UIViewController {
     private let scannedBarcodeLabel = UILabel()
     private let scannedBarcodeValueLabel = UILabel()
     private let scanAgainButton = FTButton(backgroundColor: .blue, title: "Scan Again?")
-    
-    private var isVisible = true
-    
+        
     // MARK: - ViewModel
     var viewModel: BarcodeScannerViewModel!
 
@@ -32,19 +30,7 @@ class BarcodeScannerViewController: UIViewController {
         setupScannedBarcodeValueLabel()
         setupScanAgainButton()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        isVisible = true
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        isVisible = false
-    }
-    
-    
-    
+        
     // MARK: - View Setup
     private func setupView() {
         view.backgroundColor = .systemBackground
@@ -147,7 +133,7 @@ class BarcodeScannerViewController: UIViewController {
 
 }
 
-extension BarcodeScannerViewController: CameraViewControllerDelegate {
+extension BarcodeScannerViewController: BarcodeCameraViewControllerDelegate {
     func didCaptureBarcode(_ barcode: String) {
         DispatchQueue.main.async { [weak self] in
             self?.scannedBarcodeValueLabel.text = barcode
@@ -167,7 +153,6 @@ extension BarcodeScannerViewController: CameraViewControllerDelegate {
             self.presentAlert(alertItem: AlertContext.cameraAccessDenied)
         }
     }
-    
     
 }
 
