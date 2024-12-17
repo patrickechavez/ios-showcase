@@ -36,8 +36,8 @@
 		2DB504BB2D0C900B001D1132 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504B72D0C900B001D1132 /* Date+Ext.swift */; };
 		2DB504BC2D0C900B001D1132 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504B82D0C900B001D1132 /* String+Ext.swift */; };
 		2DB504BD2D0C900B001D1132 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504B92D0C900B001D1132 /* UIViewController+Ext.swift */; };
-		2DB504CC2D0C92AB001D1132 /* FTAlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504C52D0C92AB001D1132 /* FTAlerViewController.swift */; };
-		2DB504CD2D0C92AB001D1132 /* FTDataLoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504C62D0C92AB001D1132 /* FTDataLoadingViewController.swift */; };
+		2DB504CC2D0C92AB001D1132 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504C52D0C92AB001D1132 /* AlertViewController.swift */; };
+		2DB504CD2D0C92AB001D1132 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504C62D0C92AB001D1132 /* BaseViewController.swift */; };
 		2DB504D32D0C9366001D1132 /* FTButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504CF2D0C9365001D1132 /* FTButton.swift */; };
 		2DB504D42D0C9366001D1132 /* GFTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504D12D0C9365001D1132 /* GFTextField.swift */; };
 		2DB504D92D0C9394001D1132 /* GFAlertContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB504D52D0C9394001D1132 /* GFAlertContainerView.swift */; };
@@ -78,8 +78,8 @@
 		2DB504B72D0C900B001D1132 /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 		2DB504B82D0C900B001D1132 /* String+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		2DB504B92D0C900B001D1132 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
-		2DB504C52D0C92AB001D1132 /* FTAlerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTAlerViewController.swift; sourceTree = "<group>"; };
-		2DB504C62D0C92AB001D1132 /* FTDataLoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTDataLoadingViewController.swift; sourceTree = "<group>"; };
+		2DB504C52D0C92AB001D1132 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		2DB504C62D0C92AB001D1132 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		2DB504CF2D0C9365001D1132 /* FTButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTButton.swift; sourceTree = "<group>"; };
 		2DB504D12D0C9365001D1132 /* GFTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GFTextField.swift; sourceTree = "<group>"; };
 		2DB504D52D0C9394001D1132 /* GFAlertContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GFAlertContainerView.swift; sourceTree = "<group>"; };
@@ -252,8 +252,8 @@
 		2DB504C82D0C92AB001D1132 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				2DB504C52D0C92AB001D1132 /* FTAlerViewController.swift */,
-				2DB504C62D0C92AB001D1132 /* FTDataLoadingViewController.swift */,
+				2DB504C52D0C92AB001D1132 /* AlertViewController.swift */,
+				2DB504C62D0C92AB001D1132 /* BaseViewController.swift */,
 				2DAEAA562D0E6B5E00A700ED /* BarcodeCameraView.swift */,
 				2D37D8BB2D0FEBE1008593B1 /* QRCodeCameraViewController.swift */,
 			);
@@ -378,12 +378,12 @@
 				2DB504842D0C3CA5001D1132 /* FeatureListViewController.swift in Sources */,
 				2DB504D42D0C9366001D1132 /* GFTextField.swift in Sources */,
 				2D5724DD2D0D5A35006FB1FE /* NFCCardReaderViewModel.swift in Sources */,
-				2DB504CD2D0C92AB001D1132 /* FTDataLoadingViewController.swift in Sources */,
+				2DB504CD2D0C92AB001D1132 /* BaseViewController.swift in Sources */,
 				2D5724E72D0D5A7E006FB1FE /* QRCodeScannerCoordinator.swift in Sources */,
 				2DB504BD2D0C900B001D1132 /* UIViewController+Ext.swift in Sources */,
 				2DB504E02D0C9649001D1132 /* FeatureListCoordinator.swift in Sources */,
 				2DB504982D0C4427001D1132 /* Feature.swift in Sources */,
-				2DB504CC2D0C92AB001D1132 /* FTAlerViewController.swift in Sources */,
+				2DB504CC2D0C92AB001D1132 /* AlertViewController.swift in Sources */,
 				2DB504BC2D0C900B001D1132 /* String+Ext.swift in Sources */,
 				2DB504BB2D0C900B001D1132 /* Date+Ext.swift in Sources */,
 				2DB504B52D0C5EE0001D1132 /* FTTitleLabel.swift in Sources */,

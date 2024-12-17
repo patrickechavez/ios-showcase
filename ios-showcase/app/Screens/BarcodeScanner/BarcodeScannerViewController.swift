@@ -11,12 +11,12 @@ import AVFoundation
 class BarcodeScannerViewController: UIViewController {
 
     // MARK: - UI Components
-    private let barcodeCameraView = BarcodeCameraView()
-    private let stackView = UIStackView()
-    private let iconImageView = UIImageView()
-    private let scannedBarcodeLabel = UILabel()
+    private let barcodeCameraView        = BarcodeCameraView()
+    private let stackView                = UIStackView()
+    private let iconImageView            = UIImageView()
+    private let scannedBarcodeLabel      = UILabel()
     private let scannedBarcodeValueLabel = UILabel()
-    private let scanAgainButton = FTButton(backgroundColor: .blue, title: "Scan Again?")
+    private let scanAgainButton          = FTButton(backgroundColor: .blue, title: "Scan Again?")
         
     // MARK: - ViewModel
     var viewModel: BarcodeScannerViewModel!
@@ -39,6 +39,7 @@ class BarcodeScannerViewController: UIViewController {
     // MARK: - View Setup
     private func setupView() {
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = false
         title = "Barcode Scanner"
     }
     

@@ -1,5 +1,5 @@
 //
-//  GFDataLoadingVC.swift
+//  BaseViewController.swift
 //  GithubFollowers
 //
 //  Created by John Patrick Echavez on 11/22/24.
@@ -8,7 +8,7 @@
 import UIKit
 import Foundation
 
-class FTDataLoadingViewController: UIViewController {
+class BaseViewController: UIViewController {
     
     var containerView: UIView!
 

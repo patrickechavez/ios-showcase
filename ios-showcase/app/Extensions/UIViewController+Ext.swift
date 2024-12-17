@@ -48,7 +48,7 @@ extension UIViewController {
      
     //In iOS 15, no need to use DispatchQueue.main.async {} code since UIViewControllers runs in @MainActor.
     func presentGFAlert(title: String, message: String, buttonTitle: String) {
-        let alertVC = FTAlerViewController(title: title, message: message, buttonTitle: buttonTitle)
+        let alertVC = AlertViewController(title: title, message: message, buttonTitle: buttonTitle)
         alertVC.modalPresentationStyle  = .overFullScreen
         alertVC.modalTransitionStyle    = .crossDissolve
         self.present(alertVC, animated: true)
@@ -56,7 +56,7 @@ extension UIViewController {
     }
     
     func presentDefaultError() {
-        let alertVC = FTAlerViewController(title: "Something went wrong",
+        let alertVC = AlertViewController(title: "Something went wrong",
                                 message: "We were unable to complete your task at this time. Please try again.",
                                 buttonTitle: "Ok")
         alertVC.modalPresentationStyle  = .overFullScreen

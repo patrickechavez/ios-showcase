@@ -128,7 +128,6 @@ extension QRCodeCameraViewController: AVCaptureMetadataOutputObjectsDelegate {
             delegate?.didSurface(error: .invalidScannedValue)
             return
         }
-    
         // Notify delegate about the captured QRCode
         delegate?.didCaptureQRCode(qrCode)
         stopCaptureSession(output)
