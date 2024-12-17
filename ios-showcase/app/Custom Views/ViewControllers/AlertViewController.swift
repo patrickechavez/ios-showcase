@@ -1,5 +1,5 @@
 //
-//  GFAlertVC.swift
+//  AlertViewController.swift
 //  GithubFollowers
 //
 //  Created by John Patrick Echavez on 8/21/22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FTAlerViewController: UIViewController {
+class AlertViewController: UIViewController {
     
     let containerView   = GFAlertContainerView()
     let titleLabel      = FTTitleLabel(textAlignment: .center, fontSize: 20)

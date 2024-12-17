@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeatureListViewController: UIViewController {
+class FeatureListViewController: BaseViewController {
     
     enum Section {
         case main
@@ -26,6 +26,14 @@ class FeatureListViewController: UIViewController {
         configureFeatureTableView()
         configureDataSource()
         updateData(features)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Clear the selected row
+        if let selectedIndexPath = featureListTableView.indexPathForSelectedRow {
+            featureListTableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
     }
     
     func configure() {

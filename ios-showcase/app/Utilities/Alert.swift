@@ -5,7 +5,6 @@
 //  Created by John Patrick Echavez on 12/15/24.
 //
 
-import Foundation
 import UIKit
 
 struct AlertItem {
@@ -54,6 +53,4 @@ struct AlertContext {
             }
         }
     )
-    
-
 }
